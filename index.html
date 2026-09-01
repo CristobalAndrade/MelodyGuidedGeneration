@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Melody-Guided Generation — audio demos</title>
+  <meta name="description" content="Audio demonstration examples for melody-guided generation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      if (!window.renderMathInElement) return;
+      window.renderMathInElement(document.body, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+        ],
+        throwOnError: false,
+      });
+    });
+  </script>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --muted: #5c5c5c;
+      --rule: #d9d4cc;
+      --accent: #2c5282;
+      --card: #fff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .wrap {
+      max-width: 58rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    .proceedings {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      text-align: center;
+      color: var(--text);
+      line-height: 1.4;
+      margin: 0 0 1.5rem;
+    }
+
+    h1 {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.2;
+      margin: 0 0 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .authors {
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .authors-line2 {
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .affil {
+      font-size: 0.95rem;
+      color: var(--muted);
+      text-align: center;
+      margin: 0 0 0.25rem;
+    }
+
+    .links {
+      margin: 1.25rem 0 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem 1.25rem;
+    }
+
+    .links a {
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    .links a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .lede {
+      font-size: 1.02rem;
+      max-width: 52rem;
+      margin: 0 0 2.5rem;
+      padding: 1.25rem 1.35rem;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+    }
+
+    .method {
+      margin: 2rem 0 2.5rem;
+      padding: 1.25rem 1.35rem;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+    }
+
+    .method p { margin: 0 0 0.75rem; }
+
+    h2 {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      text-align: left;
+      margin: 2.5rem 0 1rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    h2:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    h3.subsection {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 1rem 0 0.6rem;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      margin: 0 0 1.25rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table.demo {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    table.demo th,
+    table.demo td {
+      border: 1px solid var(--rule);
+      padding: 0.65rem 0.7rem;
+      vertical-align: top;
+    }
+
+    table.demo th {
+      text-align: left;
+      font-weight: 600;
+      background: rgba(215, 205, 244, 1);
+    }
+
+    table.demo thead tr th:first-child {
+      width: 250px;
+    }
+
+    table.demo td.query {
+      max-width: 14rem;
+    }
+
+    .audio-cell audio {
+      width: 100%;
+      max-width: 260px;
+      height: 36px;
+      margin-top: 0.35rem;
+    }
+
+    .ack {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .references {
+      margin-top: 2.5rem;
+      padding-top: 0.75rem;
+    }
+
+    .references > h2 {
+      text-align: left;
+    }
+
+    .references-list {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+      counter-reset: ref-counter;
+    }
+
+    .references-list li {
+      counter-increment: ref-counter;
+      position: relative;
+      padding-left: 2.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .references-list li::before {
+      content: "[" counter(ref-counter) "]";
+      position: absolute;
+      left: 0;
+    }
+
+    table.demo.equal-cols {
+      table-layout: fixed;
+    }
+
+    table.demo.equal-cols th,
+    table.demo.equal-cols td {
+      width: auto;
+    }
+
+    table.demo.equal-cols thead tr th:first-child {
+      width: auto;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="proceedings">2027 IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP 2027) &mdash; <!-- TODO: city, country, dates --></p>
+      <h1><!-- TODO: paper title -->Melody-Guided Generation</h1>
+      <p class="authors">Cristóbal Andrade <sup>1</sup> Sebastian J. Schlecht<sup>1</sup></p>
+      <p class="affil"><sup>1</sup>Multimedia Communications and Signal Processing<br>
+        Friedrich-Alexander-Universität Erlangen-Nürnberg<br>
+        Erlangen, Germany</p>
+
+      <nav class="links" aria-label="Paper resources">
+        <a href="#">Paper</a>
+        <a href="#">Code</a>
+      </nav>
+    </header>
+
+    <h2>Abstract</h2>
+    <p class="lede">
+      <!-- TODO: paste the paper abstract here. Inline math is supported with $...$ / $$...$$ via KaTeX. -->
+      This page hosts audio demonstrations for our melody-guided generation method. Placeholder text &mdash; replace with the paper abstract.
+    </p>
+
+    <div id="audio-demos">
+      <!-- ============================================================= -->
+      <!-- SECTION 1: Melody-Conditioned Generation                       -->
+      <!-- ============================================================= -->
+      <h2>Melody-Conditioned Generation</h2>
+      <p>Each melody guide is rendered in three target timbres.</p>
+      <div class="table-scroll">
+      <table class="demo equal-cols">
+      <colgroup>
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+      </colgroup>
+      <thead>
+      <tr>
+      <th scope="col">Melody Guide</th>
+      <th scope="col">Singing Voice</th>
+      <th scope="col">Guitar</th>
+      <th scope="col">Piano</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/01-AchGottundHerr_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/01-AchGottundHerr_melody_output_SingingVoice-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/01-AchGottundHerr_melody_output_Guitar-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/01-AchGottundHerr_melody_output_Piano-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/05-DieNacht_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/05-DieNacht_melody_output_SingingVoice-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/05-DieNacht_melody_output_Guitar-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/05-DieNacht_melody_output_Piano-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/03-ChristederdubistTagundLicht_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/03-ChristederdubistTagundLicht_melody_output_SingingVoice-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/03-ChristederdubistTagundLicht_melody_output_Guitar-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/03-ChristederdubistTagundLicht_melody_output_Piano-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 2: Effect of t_init                                    -->
+      <!-- ============================================================= -->
+      <h2>Effect of $t_\text{init}$</h2>
+      <p>Generated audio for a fixed melody guide as the initialization noise level $t_\text{init}$ is swept. $\lambda$ fixed at 0</p>
+      <div class="table-scroll">
+      <table class="demo equal-cols">
+      <colgroup>
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+      </colgroup>
+      <thead>
+      <tr>
+      <th scope="col">Melody Guide</th>
+      <th scope="col">$t_\text{init}$ = 0.3</th>
+      <th scope="col">$t_\text{init}$ = 0.6</th>
+      <th scope="col">$t_\text{init}$ = 0.7</th>
+      <th scope="col">$t_\text{init}$ = 0.8</th>
+      <th scope="col">$t_\text{init}$ = 1.0</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfTInit/03-ChristederdubistTagundLicht_melody_reference.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfTInit/03-ChristederdubistTagundLicht_melody_initsigma0.3_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfTInit/03-ChristederdubistTagundLicht_melody_initsigma0.6_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfTInit/03-ChristederdubistTagundLicht_melody_initsigma0.7_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfTInit/03-ChristederdubistTagundLicht_melody_initsigma0.8_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfTInit/03-ChristederdubistTagundLicht_melody_initsigma1.0_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 3: Effect of lambda                                    -->
+      <!-- ============================================================= -->
+      <h2>Effect of $\lambda$</h2>
+      <p>Generated audio for a fixed melody guide as the guidance scale $\lambda$ is swept. $t_\text{init}$ fixed at 1</p>
+      <div class="table-scroll">
+      <table class="demo equal-cols">
+      <colgroup>
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+      </colgroup>
+      <thead>
+      <tr>
+      <th scope="col">Melody Guide</th>
+      <th scope="col">$\lambda$ = 0.5</th>
+      <th scope="col">$\lambda$ = 1.0</th>
+      <th scope="col">$\lambda$ = 1.5</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfLambda/03-ChristederdubistTagundLicht_melody_reference.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfLambda/03-ChristederdubistTagundLicht_melody_zeta0.5_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfLambda/03-ChristederdubistTagundLicht_melody_zeta1.0_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfLambda/03-ChristederdubistTagundLicht_melody_zeta1.5_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 4: Effect of cents per f_0                             -->
+      <!-- ============================================================= -->
+      <h2>Effect of cents per $f_0$</h2>
+      <p>Generated audio for a fixed melody guide as the pitch tolerance (in cents relative to $f_0$) is swept.</p>
+      <div class="table-scroll">
+      <table class="demo equal-cols">
+      <colgroup>
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+      </colgroup>
+      <thead>
+      <tr>
+      <th scope="col">Melody Guide</th>
+      <th scope="col">1 cent</th>
+      <th scope="col">5 cents</th>
+      <th scope="col">10 cents</th>
+      <th scope="col">20 cents</th>
+      <th scope="col">50 cents</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfCentsPerF0/03-ChristederdubistTagundLicht_melody_reference.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfCentsPerF0/03-ChristederdubistTagundLicht_melody_output__f0rcent1.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfCentsPerF0/03-ChristederdubistTagundLicht_melody_output__f0rcent5.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfCentsPerF0/03-ChristederdubistTagundLicht_melody_output__f0rcent10.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfCentsPerF0/03-ChristederdubistTagundLicht_melody_output__f0rcent20.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfCentsPerF0/03-ChristederdubistTagundLicht_melody_output__f0rcent50.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 5: Baseline Comparison                                 -->
+      <!-- ============================================================= -->
+      <h2>Baseline Comparison</h2>
+      <p>Side-by-side comparison against prior melody-conditioned models on the same melody guides.</p>
+
+      <h3 class="subsection">Singing Voice</h3>
+      <p><em>These results should be taken with a grain of salt.</em></p>
+      <div class="table-scroll">
+      <table class="demo equal-cols">
+      <colgroup>
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+      </colgroup>
+      <thead>
+      <tr>
+      <th scope="col">Example</th>
+      <th scope="col">Melody Guide</th>
+      <th scope="col">DiffSinger [1]</th>
+      <th scope="col">Diff-SVC [2]</th>
+      <th scope="col">WORLD [3]</th>
+      <th scope="col">Ours</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td class="query">Ach Gott und Herr</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/01-AchGottundHerr_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/SingingVoice/01-AchGottundHerr_melody_diffsinger.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/SingingVoice/01-AchGottundHerr_melody_diffsvc.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/SingingVoice/01-AchGottundHerr_melody_world.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/SingingVoice/01-AchGottundHerr_melody_output_SingingVoice-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      <tr>
+      <td class="query">Christ, der du bist Tag und Licht</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/03-ChristederdubistTagundLicht_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/SingingVoice/03-ChristederdubistTagundLicht_melody_diffsinger.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/SingingVoice/03-ChristederdubistTagundLicht_melody_diffsvc.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/SingingVoice/03-ChristederdubistTagundLicht_melody_world.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/SingingVoice/03-ChristederdubistTagundLicht_melody_output_SingingVoice-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      <tr>
+      <td class="query">Die Nacht</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/05-DieNacht_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/SingingVoice/05-DieNacht_melody_diffsinger.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/SingingVoice/05-DieNacht_melody_diffsvc.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/SingingVoice/05-DieNacht_melody_world.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/SingingVoice/05-DieNacht_melody_output_SingingVoice-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+      <h3 class="subsection">Guitar</h3>
+      <p><em>These results should be taken with a grain of salt.</em></p>
+      <div class="table-scroll">
+      <table class="demo equal-cols">
+      <colgroup>
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+      </colgroup>
+      <thead>
+      <tr>
+      <th scope="col">Example</th>
+      <th scope="col">Melody Guide</th>
+      <th scope="col">DDSP-Guitar [4]</th>
+      <th scope="col">MSD [5]</th>
+      <th scope="col">RAVE [6]</th>
+      <th scope="col">Ours</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td class="query">Ach Gott und Herr</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/01-AchGottundHerr_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Guitar/01-AchGottundHerr_melody_ddspguitar.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Guitar/01-AchGottundHerr_melody_msd.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Guitar/01-AchGottundHerr_melody_rave.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Guitar/01-AchGottundHerr_melody_output_Guitar-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      <tr>
+      <td class="query">Christ, der du bist Tag und Licht</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/03-ChristederdubistTagundLicht_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Guitar/03-ChristederdubistTagundLicht_melody_ddspguitar.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Guitar/03-ChristederdubistTagundLicht_melody_msd.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Guitar/03-ChristederdubistTagundLicht_melody_rave.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Guitar/03-ChristederdubistTagundLicht_melody_output_Guitar-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      <tr>
+      <td class="query">Die Nacht</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/05-DieNacht_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Guitar/05-DieNacht_melody_ddspguitar.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Guitar/05-DieNacht_melody_msd.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Guitar/05-DieNacht_melody_rave.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Guitar/05-DieNacht_melody_output_Guitar-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+      <h3 class="subsection">Piano</h3>
+      <div class="table-scroll">
+      <table class="demo equal-cols">
+      <colgroup>
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+      </colgroup>
+      <thead>
+      <tr>
+      <th scope="col">Example</th>
+      <th scope="col">Melody Guide</th>
+      <th scope="col">MSD [5]</th>
+      <th scope="col">Piano Kontext [7]</th>
+      <th scope="col">Ours &ndash; CQTDiff</th>
+      <th scope="col">Ours &ndash; MR-CQTDiff</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td class="query">Piano</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Piano/pop909_041_326_melody.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Piano/pop909_041_326_melody_output_MSD.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Piano/pop909_041_326_melody_pianokontext_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Piano/pop909_041_326_melody_output_CQTDiff.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/BaselineComparison/Piano/pop909_041_326_melody_output_MRCQTDiff.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+      <!-- ===== SECTION 6: Timbre Transfer — COMMENTED OUT (placeholder) =====
+      <h2>Timbre Transfer</h2>
+      <p>A source recording is re-rendered with a target timbre while the melody is preserved. <em>Placeholder rows &mdash; drop files into <code>assets/audio/TimbreTransfer/&lt;Example&gt;/</code>.</em></p>
+      <div class="table-scroll">
+      <table class="demo equal-cols">
+      <colgroup>
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+      </colgroup>
+      <thead>
+      <tr>
+      <th scope="col">Example</th>
+      <th scope="col">Source recording</th>
+      <th scope="col">Ours</th>
+      <th scope="col">Prior work</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td class="query">Example 1</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/TimbreTransfer/Example1/source.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/TimbreTransfer/Example1/output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td><span style="color: var(--muted);">&mdash;</span></td>
+      </tr>
+      <tr>
+      <td class="query">Example 2</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/TimbreTransfer/Example2/source.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/TimbreTransfer/Example2/output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td><span style="color: var(--muted);">&mdash;</span></td>
+      </tr>
+      <tr>
+      <td class="query">Example 3</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/TimbreTransfer/Example3/source.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/TimbreTransfer/Example3/output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td><span style="color: var(--muted);">&mdash;</span></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+      ===== end SECTION 6: Timbre Transfer ===== -->
+
+      <!-- ============================================================= -->
+      <!-- SECTION 7: Long Gap Inpainting                                 -->
+      <!-- ============================================================= -->
+      <h2>Long Gap Inpainting</h2>
+      <p>A 0.7&nbsp;s gap (3.00&ndash;3.70&nbsp;s) is removed from the signal and reconstructed. The blind variant inpaints with no melody guidance; the melody-guided variant conditions the fill on the $f_0$ contour of the missing region.</p>
+      <div class="table-scroll">
+      <table class="demo equal-cols">
+      <colgroup>
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+      </colgroup>
+      <thead>
+      <tr>
+      <th scope="col">Clean signal</th>
+      <th scope="col">Gapped input</th>
+      <th scope="col">Inpainted blind</th>
+      <th scope="col">Inpainted melody-guided</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/Inpaiting/1_generated_6s.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/Inpaiting/2_gapped_6s.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/Inpaiting/4_inpainted_blind_6s.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/Inpaiting/3_inpainted_6s.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+    </div>
+
+    <section class="references" id="references">
+      <h2>References</h2>
+      <ol class="references-list">
+        <li>
+          J. Liu, C. Li, Y. Ren, F. Chen, and Z. Zhao,
+          &ldquo;DiffSinger: Singing voice synthesis via shallow diffusion mechanism,&rdquo;
+          in <em>Proc. AAAI Conf. Artificial Intelligence</em>, 2022.
+          <em>arXiv:2105.02446</em>.
+        </li>
+        <li>
+          S. Liu, Y. Cao, D. Su, and H. Meng,
+          &ldquo;DiffSVC: A diffusion probabilistic model for singing voice conversion,&rdquo;
+          in <em>Proc. IEEE Automatic Speech Recognition and Understanding Workshop (ASRU)</em>, 2021, pp. 741&ndash;748.
+        </li>
+        <li>
+          M. Morise, F. Yokomori, and K. Ozawa,
+          &ldquo;WORLD: A vocoder-based high-quality speech synthesis system for real-time applications,&rdquo;
+          <em>IEICE Trans. Information and Systems</em>, vol. E99-D, no. 7, pp. 1877&ndash;1884, 2016.
+        </li>
+        <li>
+          J. Engel, L. Hantrakul, C. Gu, and A. Roberts,
+          &ldquo;DDSP: Differentiable digital signal processing,&rdquo;
+          in <em>Proc. Int. Conf. Learning Representations (ICLR)</em>, 2020.
+          <em>arXiv:2001.04643</em>.
+        </li>
+        <li>
+          C. Hawthorne, I. Simon, A. Roberts, N. Zeghidour, J. Gardner, E. Manilow, and J. Engel,
+          &ldquo;Multi-instrument music synthesis with spectrogram diffusion,&rdquo;
+          in <em>Proc. Int. Soc. Music Information Retrieval Conf. (ISMIR)</em>, 2022.
+          <em>arXiv:2206.05408</em>.
+        </li>
+        <li>
+          A. Caillon and P. Esling,
+          &ldquo;RAVE: A variational autoencoder for fast and high-quality neural audio synthesis,&rdquo;
+          <em>arXiv preprint</em> arXiv:2111.05011, 2021.
+        </li>
+        <li>
+          D. Gavrilev,
+          &ldquo;PianoKontext: Expressive performance rendering from deadpan context,&rdquo;
+          <em>ICML Workshop on Machine Learning for Audio</em>, 2026.
+          <em>arXiv:2606.12282</em>.
+        </li>
+        <!-- Add more references as new <li> entries -->
+      </ol>
+    </section>
+
+    <footer>
+      Page template inspired by <a href="https://audio-agi.github.io/Separate-Anything-You-Describe/">Separate Anything You Describe</a>.
+    </footer>
+  </div>
+</body>
+</html>
