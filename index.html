@@ -524,81 +524,7 @@
       </div>
 
       <!-- ============================================================= -->
-      <!-- SECTION 4: Effect of cents per f_0                             -->
-      <!-- ============================================================= -->
-      <h2>Effect of cents per $f_0$</h2>
-      <p>Generated audio for a fixed melody guide as the pitch tolerance (in cents relative to $f_0$) is swept.</p>
-      <div class="table-scroll">
-      <table class="demo equal-cols">
-      <colgroup>
-        <col style="width: 16.6667%;">
-        <col style="width: 16.6667%;">
-        <col style="width: 16.6667%;">
-        <col style="width: 16.6667%;">
-        <col style="width: 16.6667%;">
-        <col style="width: 16.6667%;">
-      </colgroup>
-      <thead>
-      <tr>
-      <th scope="col">Melody Guide</th>
-      <th scope="col">1 cent</th>
-      <th scope="col">5 cents</th>
-      <th scope="col">10 cents</th>
-      <th scope="col">20 cents</th>
-      <th scope="col">50 cents</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-      <td>
-      <div class="audio-cell">
-      <audio controls preload="metadata">
-      <source src="assets/audio/EffectOfCentsPerF0/03-ChristederdubistTagundLicht_melody_reference.wav" type="audio/wav">
-      </audio>
-      </div>
-      </td>
-      <td>
-      <div class="audio-cell">
-      <audio controls preload="metadata">
-      <source src="assets/audio/EffectOfCentsPerF0/03-ChristederdubistTagundLicht_melody_output__f0rcent1.wav" type="audio/wav">
-      </audio>
-      </div>
-      </td>
-      <td>
-      <div class="audio-cell">
-      <audio controls preload="metadata">
-      <source src="assets/audio/EffectOfCentsPerF0/03-ChristederdubistTagundLicht_melody_output__f0rcent5.wav" type="audio/wav">
-      </audio>
-      </div>
-      </td>
-      <td>
-      <div class="audio-cell">
-      <audio controls preload="metadata">
-      <source src="assets/audio/EffectOfCentsPerF0/03-ChristederdubistTagundLicht_melody_output__f0rcent10.wav" type="audio/wav">
-      </audio>
-      </div>
-      </td>
-      <td>
-      <div class="audio-cell">
-      <audio controls preload="metadata">
-      <source src="assets/audio/EffectOfCentsPerF0/03-ChristederdubistTagundLicht_melody_output__f0rcent20.wav" type="audio/wav">
-      </audio>
-      </div>
-      </td>
-      <td>
-      <div class="audio-cell">
-      <audio controls preload="metadata">
-      <source src="assets/audio/EffectOfCentsPerF0/03-ChristederdubistTagundLicht_melody_output__f0rcent50.wav" type="audio/wav">
-      </audio>
-      </div>
-      </td>
-      </tr>
-      </tbody>
-      </table>
-      </div>
-
-      <!-- ============================================================= -->
-      <!-- SECTION 5: Baseline Comparison                                 -->
+      <!-- SECTION 4: Baseline Comparison                                 -->
       <!-- ============================================================= -->
       <h2>Baseline Comparison</h2>
       <p>Side-by-side comparison against prior melody-conditioned models on the same melody guides.</p>
@@ -949,7 +875,7 @@
       </table>
       </div>
 
-      <!-- ===== SECTION 6: Timbre Transfer — COMMENTED OUT (placeholder) =====
+      <!-- ===== SECTION 5: Timbre Transfer — COMMENTED OUT (placeholder) =====
       <h2>Timbre Transfer</h2>
       <p>A source recording is re-rendered with a target timbre while the melody is preserved. <em>Placeholder rows &mdash; drop files into <code>assets/audio/TimbreTransfer/&lt;Example&gt;/</code>.</em></p>
       <div class="table-scroll">
@@ -1026,10 +952,10 @@
       </tbody>
       </table>
       </div>
-      ===== end SECTION 6: Timbre Transfer ===== -->
+      ===== end SECTION 5: Timbre Transfer ===== -->
 
       <!-- ============================================================= -->
-      <!-- SECTION 7: Long Gap Inpainting                                 -->
+      <!-- SECTION 6: Long Gap Inpainting                                 -->
       <!-- ============================================================= -->
       <h2>Long Gap Inpainting</h2>
       <p>A 0.7&nbsp;s gap (3.00&ndash;3.70&nbsp;s) is removed from the signal and reconstructed. The blind variant inpaints with no melody guidance; the melody-guided variant conditions the fill on the $f_0$ contour of the missing region.</p>
