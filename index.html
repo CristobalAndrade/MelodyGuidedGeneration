@@ -577,7 +577,81 @@
       <!-- SECTION 3: Effect of lambda                                    -->
       <!-- ============================================================= -->
       <h2>Effect of $\lambda$</h2>
-      <p>Generated audio for a fixed melody guide as the guidance scale $\lambda$ is swept. $t_\text{init}$ fixed at 1</p>
+      <p>Generated audio for a fixed melody guide as the guidance scale $\lambda$ is swept.</p>
+
+      <h3 class="subsection">Without Warm Initialization</h3>
+      <p>Reverse diffusion starts from pure Gaussian noise. Increases in $\lambda$ lead to more faithful reproduction of the melody guide, but degrades quality until the point of sound out of distribution.</p>
+      <div class="table-scroll">
+      <table class="demo equal-cols">
+      <colgroup>
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+        <col style="width: 16.6667%;">
+      </colgroup>
+      <thead>
+      <tr>
+      <th scope="col">Melody Guide</th>
+      <th scope="col">$\lambda$ = 0</th>
+      <th scope="col">$\lambda$ = 0.5</th>
+      <th scope="col">$\lambda$ = 1.0</th>
+      <th scope="col">$\lambda$ = 2.0</th>
+      <th scope="col">$\lambda$ = 3.0</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfLambda/03-ChristederdubistTagundLicht_melody_reference.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfLambda/NoiseInit/03-ChristederdubistTagundLicht_melody_zeta0_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfLambda/NoiseInit/03-ChristederdubistTagundLicht_melody_zeta0.5_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfLambda/NoiseInit/03-ChristederdubistTagundLicht_melody_zeta1.0_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfLambda/NoiseInit/03-ChristederdubistTagundLicht_melody_zeta2.0_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/EffectOfLambda/NoiseInit/03-ChristederdubistTagundLicht_melody_zeta3.0_output.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+      <h3 class="subsection">With Warm Initialization</h3>
+      <p>Reverse diffusion is warm-started from the target melody, with $t_\text{init}$ fixed at 1. Increases in $\lambda$ lead to more faithful reproduction of the melody guide, but degrades quality until the point of sound has a very accurate melody, but sounds robotic.</p>
       <div class="table-scroll">
       <table class="demo equal-cols">
       <colgroup>
