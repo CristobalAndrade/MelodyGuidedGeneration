@@ -282,24 +282,26 @@
       <!-- ============================================================= -->
       <h2>Melody-Conditioned Generation</h2>
       <p>Each melody guide is rendered in three target timbres.</p>
+
+      <h3 class="subsection">Singing Voice</h3>
+      <p>These examples demonstrate melody adherence. Each example shows different phonemes, which are resolved by the unconditional model, since our method provides no control over them.</p>
       <div class="table-scroll">
       <table class="demo equal-cols">
       <colgroup>
-        <col style="width: 25%;">
-        <col style="width: 25%;">
-        <col style="width: 25%;">
-        <col style="width: 25%;">
+        <col style="width: 33.3333%;">
+        <col style="width: 33.3333%;">
+        <col style="width: 33.3333%;">
       </colgroup>
       <thead>
       <tr>
+      <th scope="col">Example</th>
       <th scope="col">Melody Guide</th>
       <th scope="col">Singing Voice</th>
-      <th scope="col">Guitar</th>
-      <th scope="col">Piano</th>
       </tr>
       </thead>
       <tbody>
       <tr>
+      <td class="query">Ach Gott und Herr</td>
       <td>
       <div class="audio-cell">
       <audio controls preload="metadata">
@@ -314,22 +316,9 @@
       </audio>
       </div>
       </td>
-      <td>
-      <div class="audio-cell">
-      <audio controls preload="metadata">
-      <source src="assets/audio/MelodyConditioned/Melody1/01-AchGottundHerr_melody_output_Guitar-2.wav" type="audio/wav">
-      </audio>
-      </div>
-      </td>
-      <td>
-      <div class="audio-cell">
-      <audio controls preload="metadata">
-      <source src="assets/audio/MelodyConditioned/Melody1/01-AchGottundHerr_melody_output_Piano-2.wav" type="audio/wav">
-      </audio>
-      </div>
-      </td>
       </tr>
       <tr>
+      <td class="query">Die Nacht</td>
       <td>
       <div class="audio-cell">
       <audio controls preload="metadata">
@@ -344,22 +333,9 @@
       </audio>
       </div>
       </td>
-      <td>
-      <div class="audio-cell">
-      <audio controls preload="metadata">
-      <source src="assets/audio/MelodyConditioned/Melody1/05-DieNacht_melody_output_Guitar-2.wav" type="audio/wav">
-      </audio>
-      </div>
-      </td>
-      <td>
-      <div class="audio-cell">
-      <audio controls preload="metadata">
-      <source src="assets/audio/MelodyConditioned/Melody1/05-DieNacht_melody_output_Piano-2.wav" type="audio/wav">
-      </audio>
-      </div>
-      </td>
       </tr>
       <tr>
+      <td class="query">Christ, der du bist Tag und Licht</td>
       <td>
       <div class="audio-cell">
       <audio controls preload="metadata">
@@ -374,10 +350,140 @@
       </audio>
       </div>
       </td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+      <h3 class="subsection">Guitar</h3>
+      <p>These examples demonstrate melody adherence. The onsets sometimes sound as if played with a pick or bent, which is resolved by the unconditional model, as our method provides no control over them.</p>
+      <div class="table-scroll">
+      <table class="demo equal-cols">
+      <colgroup>
+        <col style="width: 33.3333%;">
+        <col style="width: 33.3333%;">
+        <col style="width: 33.3333%;">
+      </colgroup>
+      <thead>
+      <tr>
+      <th scope="col">Example</th>
+      <th scope="col">Melody Guide</th>
+      <th scope="col">Guitar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td class="query">Ach Gott und Herr</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/01-AchGottundHerr_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/01-AchGottundHerr_melody_output_Guitar-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      <tr>
+      <td class="query">Die Nacht</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/05-DieNacht_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/05-DieNacht_melody_output_Guitar-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      <tr>
+      <td class="query">Christ, der du bist Tag und Licht</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/03-ChristederdubistTagundLicht_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
       <td>
       <div class="audio-cell">
       <audio controls preload="metadata">
       <source src="assets/audio/MelodyConditioned/Melody1/03-ChristederdubistTagundLicht_melody_output_Guitar-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+      <h3 class="subsection">Piano</h3>
+      <p>These examples demonstrate melody adherence, but with degraded perceptual qualit. Decays lack piano-like characteristics and onsets are underarticulated. We attribute this to distribution mismatch, as the unconditional prior was trained on polyphonic material, making a monophonic melody line out of distribution.</p>
+      <div class="table-scroll">
+      <table class="demo equal-cols">
+      <colgroup>
+        <col style="width: 33.3333%;">
+        <col style="width: 33.3333%;">
+        <col style="width: 33.3333%;">
+      </colgroup>
+      <thead>
+      <tr>
+      <th scope="col">Example</th>
+      <th scope="col">Melody Guide</th>
+      <th scope="col">Piano</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td class="query">Ach Gott und Herr</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/01-AchGottundHerr_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/01-AchGottundHerr_melody_output_Piano-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      <tr>
+      <td class="query">Die Nacht</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/05-DieNacht_melody_reference-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/05-DieNacht_melody_output_Piano-2.wav" type="audio/wav">
+      </audio>
+      </div>
+      </td>
+      </tr>
+      <tr>
+      <td class="query">Christ, der du bist Tag und Licht</td>
+      <td>
+      <div class="audio-cell">
+      <audio controls preload="metadata">
+      <source src="assets/audio/MelodyConditioned/Melody1/03-ChristederdubistTagundLicht_melody_reference-2.wav" type="audio/wav">
       </audio>
       </div>
       </td>
